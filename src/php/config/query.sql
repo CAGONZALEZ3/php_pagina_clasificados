@@ -81,10 +81,12 @@ values (2,'ADMIN','cgonAdmin@gmail.com','1234');
 
 
 CREATE VIEW Anuncios_Con_Imagenes as
-SELECT  ads_title, 
+SELECT  ads_id,
+		ad_id,
+		ads_title, 
 		ads_description, 
         ads_price, 
-        ads_usr_id, 
+        ads_usr_id,
         (select usr_name from users_usr where usr_id = ads_usr_id) name,
         ads_category_id, 
         ads_image_url 
