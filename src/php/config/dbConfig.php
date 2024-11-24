@@ -2,7 +2,7 @@
 <?php
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
-define('DB_PASSWORD', 'PoCoYo1-15');
+define('DB_PASSWORD', '');
 define('DB_NAME', 'EXAMEN_PHP_DSVII');
 
 try{
