@@ -154,5 +154,27 @@ class Anuncions{
             return [];
         }
     }
+
+    public static function getAllAdsImagesCatLike($categotyId, $item){
+        global $conn;
+        $table_name = "Anuncios_Con_Imagenes";
+
+        $query = "SELECT *
+                    FROM $table_name 
+                    WHERE (ads_title LIKE :item OR ads_description LIKE :item) 
+                    AND (:categoryId IS NULL OR ads_category_id = :categoryId)";
+        try {
+            $itemParam = '%' . $item . '%';
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':item', $itemParam, PDO::PARAM_STR);
+            $stmt->bindParam(':categoryId', $categoryId, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC); // Devuelve todos los resultados como un arreglo asociativo
+        } catch (PDOException $e) {
+            // Manejo de errores
+            error_log("Error en getAllAdsImages: " . $e->getMessage());
+            return [];
+        }
+    }
 }
 ?>

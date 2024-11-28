@@ -23,7 +23,7 @@ $usr_email = $_GET["email"];
 </head>
 
 <body>
-    <div class="content">
+    <div class="search-box">
         <div class="header">
             <h1>Editar Usuario</h1>
         </div>

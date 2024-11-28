@@ -1,6 +1,6 @@
 <?php
+session_start();
 require_once '../php/config/dbConfig.php';
-include '../views/header.php';
 
 // Verifica si el usuario está logueado
 if (!isset($_SESSION['id'])) {
@@ -56,7 +56,13 @@ if ($chat_user_id) {
     $messages = $stmt->fetchAll();
 }
 ?>
-<style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <style>
         body { font-family: Arial, sans-serif; }
         .chat-container { max-width: 600px; margin: 0 auto; }
         .user-select { margin-bottom: 20px; }
@@ -68,12 +74,14 @@ if ($chat_user_id) {
         textarea { width: 100%; height: 50px; }
         button { width: 100%; }
     </style>
+</head>
 <body>
     <div class="chat-container">
         <h1>Chat</h1>
+        <a href="../public/index.php">Back to home</a>
+
 
         <!-- Selección del usuario para chatear -->
-         
         <div class="user-select">
             <form method="GET" action="mensajes.php">
                 <label for="user_id">Selecciona un usuario para chatear:</label>
@@ -116,5 +124,3 @@ if ($chat_user_id) {
     <script src="../public/JS/chat.js"></script>
 </body>
 </html>
-
-<?php include '../views/footer.php'; ?>

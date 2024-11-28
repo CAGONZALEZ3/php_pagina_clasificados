@@ -22,20 +22,25 @@
         <?php include '../views/menu.php'; ?>
         <nav class="navbar flex-div">
           <div class="nav-left flex-div">
+          <button id="toggleSidebar">Menú</button>
               <a href="index.php">
-                  <img src="image/logo.jpg" class="logo" alt="Logo"/>
+                  <img src="../public/image/logo.jpg" class="logo" alt="Logo"/>
               </a>
           </div>
 
           <div class="nav-right flex-div">
-              <?php if ($isLoggedIn): ?>
-                  <img src="image/upload.png" class="upload-icon" id="upload-icon"/>
+            <?php if ($isLoggedIn): ?>
+              <!-- Mostrar elementos solo para usuarios logueados -->
+                <img src="image/upload.png" class="upload-icon" id="upload-icon"/>
                   <span><?php echo htmlspecialchars($userName); ?></span>
-                  <img src="image/registerUser.png" class="userLogin-icon" id="userLogin-icon"/>
+                <img src="image/registerUser.png" class="user-iconss" id="user-iconss"/>
               <?php else: ?>
-                  <img src="image/registerUser.png" class="user-icon" id="user-icon"/>
+                 <!-- Mostrar el ícono o botón de inicio de sesión -->
+                <img src="image/registerUser.png" class="user-icon" id="user-icon" alt="Login"/>
               <?php endif; ?>
           </div>
-      </nav>
+    </nav>
       <?php include '../views/popup_upload.php';?>
       <?php include '../views/popup_login.php';?>
+
+      <script src="../public/JS/sidebar.js"></script>

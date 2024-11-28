@@ -7,7 +7,7 @@
     $roles = allRols();
 ?>
 
-    <div class="content">
+    <div class="search-box">
         <h1>Lista de Roles</h1>
         <table>
             <thead>

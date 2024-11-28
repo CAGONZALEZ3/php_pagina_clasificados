@@ -10,7 +10,20 @@ if (isset($_GET['success'])) {
     header("Location: index.php");
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sing Up</title>
+  <link rel="stylesheet" href="../public/css/site.css">
+</head>
+
+<?php include_once "../views/header.php"; ?>
+<body>
+<div class="search-box">
+<h2>Sing Up</h2>
 <form action="../php/controllers/auth.php" method="POST">
     <label for="name">Nombre:</label>
     <input type="text" id="name" name="name" required><br><br>
@@ -24,5 +37,6 @@ if (isset($_GET['success'])) {
     <label for="confirm_password">Confirmar Contraseña:</label>
     <input type="password" id="confirm_password" name="confirm_password" required><br><br>
 
-    <input type="submit" value="Registrarse">
+    <a href ="../public/index.php" ><input type="submit" value="Registrarse"></a>
 </form>
+</body>

@@ -89,10 +89,11 @@
                             $redirect = '../../public/index.php?message=successU1';
                         } else {
                             $redirect = '../../public/index.php?message=errorU1';
-                            //echo "path: ".$destinacion_full;
+                            
                         }
                     } else {
                         $redirect = '../../public/index.php?message=errorU2';
+                        //echo "path: ".$destinacion_full;
                     }
                 } else {
                     $redirect = '../../public/index.php?message=successU';
@@ -118,12 +119,12 @@
                     // Eliminar la imagen asociada al anuncio
                     $imagenes = new Images_Ad($ads_id_to_delete, null , null);
                     if ($imagenes->deleteImages_ad()) {
-                        $redirect = '../../src/public/index.php?message=deleted';
+                        $redirect = '../../public/index.php?message=deleted';
                     } else {
-                        $redirect = '../../src/public/index.php?message=error1';
+                        $redirect = '../../public/index.php?message=error1';
                     }
                 } else {
-                    $redirect = '../../src/public/index.php?message=error2';
+                    $redirect = '../../public/index.php?message=error2';
                 }
             }
         }
@@ -161,5 +162,11 @@
     });
 
     return $filteredAnuncios;
+    }
+
+    function allAnunciosByCategory_Like($categoryId, $item) {
+        $allAnuncios = Anuncions::getAllAdsImagesCatLike($categoryId, $item);
+
+        return $allAnuncios;
     }
 ?>

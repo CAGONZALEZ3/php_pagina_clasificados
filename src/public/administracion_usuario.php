@@ -3,7 +3,7 @@ include '../views/header.php';
 require_once __DIR__ . '/../php/controllers/auth.php';
 $usuarios = allUsers();
 ?>
-<div class="content">
+    <div class ="search-box">
     <h1>Lista de Usuarios</h1>
     <table>
         <thead>

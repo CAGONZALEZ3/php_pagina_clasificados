@@ -25,10 +25,10 @@
                             <td><?php echo htmlspecialchars($cat['cat_name']); ?></td>
                             <td><?php echo htmlspecialchars($cat['cat_description']); ?></td>
                             <td>
-                                <a href="eliminar_categoria.php?id=<?php echo $cat['cat_id']; ?>" 
+                                <!-- <a href="eliminar_categoria.php?id=<?php echo $cat['cat_id']; ?>" 
                                 onclick="return confirm('¿Estás seguro de que deseas eliminar esta categoría?')">
                                     Eliminar
-                                </a>
+                                </a> -->
                                 <a href="añadir_categorias.php?id=<?php echo $cat['cat_id']; ?>" class="btn btn-edit">Editar</a>
                             </td>
                         </tr>

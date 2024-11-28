@@ -1,83 +1,43 @@
+/* ---------------- Estilo Global ---------------- */
 body {
-  display: block !important; 
   margin: 0;
-  font-family: "Poppins", sans-serif;
-}
-
-a {
-  text-decoration: none;
-  color: #5a5a5a;
-}
-
-img {
-  cursor: pointer;
-}
-
-/* Barra de navegación superior */
-.navbar {
-  width: 100%;
-  padding: 13px 2%;
-  justify-content: space-between;
-  background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-/* nav {
-  padding: 13px 2%;
-  justify-content: space-between;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  background-color: white;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-} */
-
-.flex-div {
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: center; /* Centra horizontalmente el contenido */
+  justify-content: center; /* Centra verticalmente el contenido */
 }
 
-.nav-right img {
-  width: 25px;
-  margin-right: 25px;
+.container {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
 }
 
-.nav-right .user-icon {
-  width: 35px;
-  border-radius: 50%;
-  margin-right: 10px;
-  margin-left: 10px;
-}
-
-.nav-right .userLogin-icon {
-  width: 35px;
-  border-radius: 50%;
-  margin-right: 10px;
-  margin-left: 10px;
-}
-
-.nav-right .upload-icon {
-  width: 30px;
-  margin-right: 10px;
-  margin-left: 0px;
-}
-
-.nav-left .logo {
-  width: 20px;
-}
-
-/* Menú lateral */
+/* ---------------- Sidebar ---------------- */
 .sidebar {
-  width: 200px;
-  height: calc(100vh - 60px); /* Ajuste considerando la altura del navbar */
-  background-color: #2c3e50;
-  color: white;
-  padding: 20px;
   position: fixed;
-  top: 60px !important;
+  top: 10%;
+  left: -250px; /* Oculto inicialmente */
+  width: 250px; /* Ancho inicial */
+  height: 100%;
+  background-color: #333;
+  color: white;
+  overflow-y: auto;
+  transition: left 0.3s ease, width 0.3s ease; /* Transición para el ancho también */
+  z-index: 1000;
+}
+
+.sidebar.active {
+  left: 0; /* Muestra el sidebar */
+}
+
+/* Sidebar reducido */
+.sidebar.search-open {
+  width: 100px; /* Reduce el ancho cuando el searchbox está abierto */
 }
 
 .sidebar ul {
@@ -94,201 +54,462 @@ img {
   text-decoration: none;
   display: block;
   padding: 10px;
-  border-radius: 5px;
-  transition: background-color 0.3s;
 }
 
 .sidebar ul li a:hover {
-  background-color: #34495e;
+  background-color: #575757;
 }
 
 /* Contenido principal */
-.content {
-  margin-left: 265px; /* Espacio reservado para el menú lateral */
+.main-content {
+  margin-left: 250px; /* Desplazado por el ancho del sidebar */
+  margin-top: 70px;
   padding: 20px;
-  width: calc(100% - 220px); /* Ajuste del ancho */
+  transition: margin-left 0.3s ease; /* Transición suave cuando el sidebar cambia */
 }
 
-.header {
+/* Contenido principal cuando el sidebar está reducido */
+.sidebar.search-open ~ .main-content {
+  margin-left: 200px; /* Ajusta el margen cuando el sidebar está reducido */
+}
+
+/* Contenido principal cuando el sidebar está oculto */
+.sidebar:not(.active) ~ .main-content {
+  margin-left: 0; /* Elimina el margen cuando el sidebar está oculto */
+}
+
+
+/* ---------------- Barra de Navegación Superior ---------------- */
+.navbar {
+  display: flex; /* Habilita Flexbox */
+  justify-content: space-between; /* Menú a la izquierda, íconos a la derecha */
+  align-items: center; /* Centra verticalmente los elementos */
+  background-color: white; /* Fondo del navbar */
+  padding: 10px 20px; /* Ajusta los márgenes internos */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra del navbar */
+  position: sticky; /* Fijo en la parte superior */
+  top: 0; /* Posición superior */
+  z-index: 1000; /* Para que esté encima de otros elementos */
+  width: 100%; /* Asegura que ocupe todo el ancho de la pantalla */
+  margin: 0; /* Elimina márgenes exteriores */
+  box-sizing: border-box; /* Incluye el padding dentro del ancho total */
+}
+
+.nav-left {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  align-items: center; /* Alinea verticalmente los elementos del lado izquierdo */
 }
 
-.header h1 {
-  margin: 0;
+.nav-right {
+  display: flex;
+  align-items: center; /* Centra verticalmente los elementos del lado derecho */
 }
 
-.add-category-button {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
+.nav-left img {
+  width: 40px; /* Tamaño del logo */
+  margin-right: 10px; /* Espaciado entre el logo y otros elementos */
+}
+
+.nav-right img {
+  width: 30px; /* Tamaño de los íconos */
+  margin-left: 10px; /* Espaciado entre íconos */
+}
+
+.nav-right span {
+  font-size: 14px; /* Tamaño del texto */
+  margin-right: 10px; /* Espaciado entre el texto y los íconos */
+}
+
+#toggleSidebar {
+  border: 1px solid red; /* Define el ancho, el estilo y el color del borde */
+  background-color: #fff;  
+  color: red;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 60px;
+  height: 40px;
+  margin-right: 20px;
+}
+
+#toggleSidebar:hover {
+  background-color: #ff0000;
+  color: #fff;
+}
+
+.nav-right {
+  display: flex; /* Habilita Flexbox */
+  align-items: center; /* Centra verticalmente */
+}
+
+.nav-right img {
+  width: 30px; /* Tamaño de los íconos */
+  margin: 0 10px; /* Espaciado entre los elementos */
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.nav-right span {
+  margin-right: 10px;
   font-size: 14px;
   font-weight: bold;
-  transition: background-color 0.3s ease;
 }
 
-.add-category-button:hover {
-  background-color: #0056b3;
-}
-
-/*--------------------------login & upload--------------------------*/
-.popup {
-  display: none; 
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-  justify-content: center; 
-  align-items: center;    
-}
-
-.popup-emergente {
-  width: 100%; 
-  max-width: 400px; 
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  position: relative;
-}
-
-
-.cerrar {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+.nav-left img{
+  width: 40px;
+  height: 40px; /* Tamaño de los íconos */
+  margin: 20 0px; /* Espaciado entre los elementos */
   cursor: pointer;
-  font-size: 18px;
 }
 
-.popup-upload{
+/*--------------------------login--------------------------*/
+/* Fondo del popup */
+.popup, .popup-upload {
   display: none; 
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo más oscuro con transparencia */
   z-index: 9999;
   justify-content: center; 
-  align-items: center;    
+  align-items: center;
+  backdrop-filter: blur(5px); /* Desenfoque en el fondo */
+  transition: opacity 0.3s ease; /* Transición suave */
 }
 
+/* Mostrar popup */
+.popup.active, .popup-upload.active {
+  display: flex;
+  opacity: 1;
+}
 
-/*form*/
+/* Contenedor principal del formulario */
 .form-login {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  align-items: center; /* Centra los elementos horizontalmente */
   width: 100%;
+  gap: 20px;
 }
 
+/* Cada grupo (label + input) */
 .form-group {
   display: flex;
-  justify-content: flex-start; /* Alinea los elementos al inicio */
-  align-items: center;
-  width: 100%; 
-  margin-bottom: 15px;
+  flex-direction: column; /* Apila los elementos verticalmente */
+  width: 100%; /* Asegura que ocupen el mismo ancho */
+  max-width: 400px; /* Establece un ancho máximo consistente */
 }
 
+/* Etiquetas */
 .form-group label {
-  min-width: 60px; /* Ancho mínimo para el label */
-  text-align: left;
-  margin-right: 10px; /* Espacio de 10px a la derecha del label */
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
 }
 
-#Titulo{
-  position: relative;
-  left: 25px;
-}
-
-input {
-  width: 50%;
-  padding: 5px;
+/* Campos de entrada y selección */
+input, select {
+  width: 100%; /* Ocupa todo el ancho disponible */
+  padding: 12px; /* Espaciado interno uniforme */
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 5px;
+  font-size: 16px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-
-.button-group {
-  display: flex; /* Hace que los botones se alineen en fila */
-  justify-content: space-between; /* Espacio entre los botones */
-  width: 100%;
-  gap: 10px; /* Espacio entre los botones */
+input:focus, select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-button {
-  padding: 10px;
+/* Botón de envío */
+input[type="submit"] {
   width: 100%;
-  background-color: #007BFF;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #ff0000;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-button:hover {
-  background-color: #0056b3;
+input[type="submit"]:hover {
+  background-color: #cc0000;
+  transform: scale(1.05);
 }
 
-.button-group button {
-  flex: 1; /* Cada botón ocupará el mismo espacio */
+/* Archivo input */
+input[type="file"] {
+  padding: 8px;
+  font-size: 14px;
 }
 
-/*--------------------------body--------------------------*/
-
-.search-box {
-  background-image: url(image/body-background.png);
-  background-size: cover;
-  background-position: center; 
-  background-repeat: no-repeat;
-  justify-content: center;
+/* Popup emergente */
+.popup-emergente {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  height: 91.5vh;
-  margin: 0; 
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.search-box input {
-  border-radius: 5px;
+/* Botones */
+/* Botones */
+.button-group {
+  display: flex;
+  justify-content: space-between; /* Espaciado uniforme entre botones */
+  gap: 10px; /* Espacio entre los botones */
+}
+
+input[type="submit"], .btn-primary, .btn-secondary {
+  flex: 1; /* Asegura que los botones tengan el mismo ancho */
+  background-color: #ff0000; /* Azul vibrante */
+  color: white;
   border: none;
-  width: 400px;
-  height: 45px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center; /* Centrar el texto */
 }
 
-.search-box button {
-  border-radius: 5px; 
-  border: none; 
-  height: 45px; 
-  padding: 0 15px; 
-  cursor: pointer; 
-  background-color: #e99e2d; 
-  color: white; 
+input[type="submit"]:hover, .btn-primary:hover, .btn-secondary:hover {
+  background-color: #565e64; /* Azul más oscuro en hover */
+  transform: scale(1.05); /* Efecto de zoom */
 }
 
+.btn-secondary:hover {
+  background-color: #565e64; /* Gris oscuro */
+}
+/* Link Forgot Password */
+.forgot-password a {
+  color: #007bff;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.forgot-password a:hover {
+  color: #0056b3;
+}
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 480px) {
+  .popup-emergente {
+    max-width: 90%;
+    padding: 20px;
+  }
+
+  input, select {
+    font-size: 14px;
+  }
+
+  input[type="submit"], .btn-primary, .btn-secondary {
+    font-size: 14px;
+    padding: 8px 15px;
+  }
+
+  .cerrar {
+    font-size: 16px;
+  }
+}
+
+/*--------------Seacrh-box---------------*/
+.search-box { 
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  flex-direction: column; /* Coloca los elementos uno debajo del otro */
+  width: 90%; /* Ocupa casi todo el ancho */
+  height: auto; /* Ocupa el 80% de la altura de la pantalla */
+  background-color: #f9f9f9; /* Fondo claro */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  padding: 20px; /* Espaciado interno */
+  text-align: center; /* Centra el texto dentro */
+}
+
+.search-box input[type="search"] {
+  width: 90%; /* Ajusta el ancho del campo */
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 18px;
+  margin-bottom: 20px; /* Espaciado entre el input y el botón */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.search-box .btn_buscar {
+  background-color: #ff0000;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.search-box .btn_buscar:hover {
+  background-color: #0056b3; /* Color más oscuro en hover */
+  transform: scale(1.05); /* Efecto de zoom al pasar el cursor */
+}
+
+/*--------------------Footer-------------------*/
+.footer {
+  display:flex; /* Habilita Flexbox */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  flex-direction: column; /* Coloca los elementos en columna */
+  padding: 10px; /* Espaciado interno */
+  width: 91%; /* Ajusta el ancho del contenedor */
+  margin: 20px auto; /* Espaciado automático arriba y abajo */
+  background-color: #f9f9f9; /* Fondo claro */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.content {
+  display: flex;
+  flex-direction: column; /* Coloca los elementos en columna */
+  align-items: center; /* Centra los elementos horizontalmente */
+  padding: 20px;
+  margin: 0 auto; /* Centra el contenido horizontalmente */
+  width: 95%; /* Ocupa el 95% del ancho de la pantalla */
+  max-width: 1200px; /* Limita el ancho máximo para grandes pantallas */
+  background-color: #f9f9f9; /* Fondo claro */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/*--------------------Product-grid-------------------*/
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajusta automáticamente las columnas */
+  gap: 20px; /* Espaciado entre tarjetas */
+  width: 95%; /* Ocupa casi todo el ancho */
+  max-width: 1200px; /* Limita el ancho máximo */
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-card {
+  background-color: rgb(255, 255, 255); /* Cambia el color de fondo si es necesario */
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  text-align: center;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: auto; /* Ajusta automáticamente la altura */
+  min-height: 300px;
+}
+
+.product-card:hover {
+  transform: scale(1.05); /* Efecto hover */
+}
+
+.product-card img {
+  width: 100%;
+  height: 150px; /* Ajusta según tus necesidades */
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.product-card h3,
+.product-card .price,
+.product-card .description {
+  margin: 10px 0;
+}
+
+.product-card button {
+  background-color: #ff0000;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.product-card button:hover {
+  background-color: #3ad11b;
+}
+
+@media (max-width: 768px) {
+  .search-box {
+    width: 100%; /* Usa todo el ancho disponible */
+    padding: 5px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Reduce el tamaño mínimo */
+    gap: 15px; /* Reduce el espaciado */
+  }
+
+  .product-card img {
+    height: 150px; /* Ajusta la altura de las imágenes */
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card {
+    padding: 10px; /* Reduce el espaciado interno */
+  }
+
+  .product-card h3 {
+    font-size: 16px; /* Reduce el tamaño del texto */
+  }
+
+  .product-card .price {
+    font-size: 14px; /* Reduce el tamaño del precio */
+  }
+}
+
+/*----------------------search bar-----------------------*/
 /* Contenedor de búsqueda */
-/* Contenedor de búsqueda fija */
 .search-container {
   position: sticky;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 98%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
-  background-color: #007bff;
+  background-color: #f9f9f9;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Oculta contenido al colapsar */
+  transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
   z-index: 1000;
 }
+
+.search-container.collapsed {
+  max-height: 0; /* Colapsa la altura */
+  opacity: 0; /* Oculta visualmente */
+  padding: 0; /* Elimina padding para reducir el espacio */
+}
+
+/* Input de búsqueda */
 
 #search-bar {
   width: 70%;
@@ -298,8 +519,9 @@ button:hover {
   font-size: 16px;
 }
 
+/* Botón Buscar */
 #search-button {
-  background-color: #0056b3;
+  background-color: #ff0000;
   width: auto !important;
   color: white;
   border: none;
@@ -311,8 +533,14 @@ button:hover {
   margin-left: 10px;
 }
 
-.clear-button {
+#search-button:hover {
   background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Botón Limpiar */
+.clear-button {
+  background-color: #ff0000;
   color: #fff;
   text-decoration: none;
   padding: 10px 15px;
@@ -325,227 +553,214 @@ button:hover {
   margin-left: 10px;
 }
 
-.clear-button:hover {
-  background-color: #003d80;
+#clear-button:hover {
+  background-color: #ccc;
+  color: #333;
 }
 
-#search-button:hover {
-  background-color: #003d80;
+/* Botón de toggle */
+.btn-toggle {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
 }
 
-/* Contenedor de contenido general */
-.content {
-  margin-top: 70px; /* Espacio para evitar que el contenido se superponga con la barra */
+.btn-toggle:hover {
+  background-color: #0056b3;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  #search-bar {
+    width: 150px;
+  }
+
+  #search-button, #clear-button {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+
+/* Categorías */
+.categories-container {
+  display: flex; /* Coloca las categorías en fila */
+  gap: 10px; /* Espacio entre las categorías */
+  flex-wrap: wrap; /* Permite que las categorías bajen a la siguiente fila si no hay suficiente espacio */
+  justify-content: center; /* Centra las categorías horizontalmente */
   padding: 20px;
 }
 
-/* Contenedor de categorías */
-.categories-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-}
-
-/* Categorías */
 .category {
-  background-color: #007bff;
-  color: white;
+  border: 2px solid red; /* Define el ancho, el estilo y el color del borde */
+  background-color: #fff;  
+  color: red;
   padding: 10px 20px;
   border-radius: 20px;
   text-align: center;
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s;
-}
-
-.category:hover {
-  background-color: #0056b3;
-}
-
-
-/*sidebar*/
-.sidebar {
-  height: 100%;
-  width: 240px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: #333;
-  padding-top: 20px;
-}
-
-.sidebar ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.sidebar ul li {
-  padding: 8px;
-  text-align: left;
-}
-
-.sidebar ul li a {
-  color: white;
-  text-decoration: none;
-  display: block;
-  padding: 10px;
-}
-
-.sidebar label {
-  color: white;
-}
-
-.sidebar ul li a:hover {
-  background-color: #575757;
-}
-
-.dropdown {
-  position: relative;
-}
-
-.dropbtn {
-  cursor: pointer;
-}
-
-.dropdown-content, .dropdown-price {
-  display: none;
-  position: absolute;
-  background-color: #333;
-  min-width: 200px;
-  padding: 10px;
-  z-index: 1;
-}
-
-.dropdown-content input[type="checkbox"], .dropdown-price input[type="text"] {
-  margin-right: 10px;
-}
-
-.dropdown-content input, .dropdown-price input {
-  display: inline-block;
-  color: white;
-  margin-left: 5px;
-}
-
-.dropdown:hover .dropdown-content, .dropdown:hover .dropdown-price {
-  display: block;
-}
-
-.dropdown-content .checkbox-group, .dropdown-price .checkbox-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.dropdown-content .checkbox-group div, .dropdown-price .checkbox-group div {
-  display: flex;
-  align-items: center;
-}
-
-/*--------------Cards---------------*/
-/* General container for the grid */
-/* Ajustar la cuadrícula para que ocupe más espacio */
-/* Product grid */
-.main-content {
-  margin-left: 260px; /* Ajuste para dejar espacio para el sidebar */
-  padding: 20px;
-}
-
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Ajusta el número de columnas dinámicamente */
-  gap: 20px; /* Espacio entre las tarjetas */
-  padding: 20px;
-}
-
-/* Tarjetas de producto */
-.product-card {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: transform 0.3s;
-}
-
-.product-card:hover {
-  transform: scale(1.05); /* Efecto hover para agrandar la tarjeta ligeramente */
-}
-
-.product-card img {
-  width: 100%;
-  height: auto;
-  border-radius: 5px;
-  object-fit: cover;
-  margin-bottom: 10px;
-}
-
-.product-card h3 {
-  font-size: 18px;
-  margin: 10px 0;
-}
-
-.product-card p {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 10px;
-}
-
-.product-card .price {
-  font-size: 16px;
-  font-weight: bold;
+  margin-top: 20px;
   margin-bottom: 15px;
 }
 
-.product-card button {
-  background-color: #007bff;
+
+.category:hover {
+  background-color: #ff0000;
   color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
+}
+/*  */
+.popup_ver_mas {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.popup-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-size: 18px;
 }
 
-.product-card button:hover {
-  background-color: #0056b3;
+#img_exit {
+  border-radius: 50%; /* Hace que sea completamente circular */
+  width: 50px; /* Tamaño ajustable */
+  height: 50px; /* Tamaño ajustable */
 }
 
-/* Responsividad */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-  }
-
-  .main-content {
-    margin-left: 0;
-  }
-
-  .product-grid {
-    grid-template-columns: 1fr; /* Solo una columna en pantallas pequeñas */
-  }
+#img_sms {
+  border-radius: 30%; /* Ajusta el radio de los bordes */
+  width: 50px; /* Tamaño ajustable */
+  height: 50px; /* Tamaño ajustable */
 }
 
 
+/*collapse*/
+.collapse{
+  position: relative;
+  width: 30px;
+}
 
-/* Tabla */
+/*tables*/
+/* Estilo para el contenedor principal */
+
+/* Título principal */
+.content h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Estilo para la tabla */
 table {
-    border-collapse: collapse;
-    width: 100%;
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+/* Encabezado de la tabla */
+table thead tr {
+  background-color: #007bff;
+  color: white;
+  text-align: left;
+  font-size: 16px;
 }
 
-th {
-    background-color: #f4f4f4;
+table thead th {
+  padding: 12px 15px;
+  text-transform: uppercase;
 }
 
-tr:nth-child(even) {
-    background-color: #f9f9f9;
+/* Filas del cuerpo de la tabla */
+table tbody tr {
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.3s ease;
+}
+
+table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Celdas de la tabla */
+table tbody td {
+  padding: 12px 15px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Columna de enlaces (editar/eliminar) */
+table tbody td a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+table tbody td a:hover {
+  color: #0056b3;
+}
+
+/* Botones de eliminar y editar */
+table tbody td a:first-child {
+  color: #28a745; /* Verde para editar */
+}
+
+table tbody td a:last-child {
+  color: #dc3545; /* Rojo para eliminar */
+}
+
+table tbody td a:last-child:hover {
+  color: #b21f2d;
+}
+
+/* Estilo para el mensaje cuando no hay usuarios */
+table tbody tr td[colspan="4"] {
+  text-align: center;
+  color: #999;
+  font-style: italic;
+  padding: 20px;
+}
+
+.Logo {
+  display: flex;
+  justify-content: center; /* Centra el contenido horizontalmente */
+  align-items: center; /* Centra el contenido verticalmente */
+  position: absolute; /* Permite posicionamiento basado en top y left */
+  top: 18%; /* Posiciona el centro verticalmente */
+  left: 50%; /* Posiciona el centro horizontalmente */
+  transform: translate(-50%, -50%); /* Ajusta el centro real */
+  width: 100px;
+  height: 100px;
+  background-color: #f1f1f1; /* Color de fondo para visibilidad */
+  border-radius: 50%; /* Opcional: ejemplo para redondear */
 }

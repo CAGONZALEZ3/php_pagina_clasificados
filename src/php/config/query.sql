@@ -93,3 +93,14 @@ SELECT  ads_id,
 FROM  anuncios_ads ads
 INNER JOIN images_ad ad
 on (ad_ads_id = ads_id);
+
+
+CREATE TABLE messages_usr (
+    msg_id INT AUTO_INCREMENT PRIMARY KEY,
+    msg_sender_id INT NOT NULL,
+    msg_receiver_id INT NOT NULL,
+    msg_content TEXT NOT NULL,
+    msg_created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (msg_sender_id) REFERENCES users_usr(usr_id) ON DELETE CASCADE,
+    FOREIGN KEY (msg_receiver_id) REFERENCES users_usr(usr_id) ON DELETE CASCADE
+);
